@@ -3,9 +3,20 @@ import { UsersModule } from './users/users.module';
 import { ReportsModule } from './reports/reports.module';
 import { UsersController } from './users/users.controller';
 import { ReportsController } from './reports/reports.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/user.entity';
 
 @Module({
-  imports: [UsersModule, ReportsModule],
+  imports: [
+    UsersModule,
+    ReportsModule,
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqlite',
+      entities: [User],
+      synchronize: true,
+    }),
+  ],
   controllers: [UsersController, ReportsController],
 })
 export class AppModule {}
